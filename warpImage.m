@@ -1,22 +1,15 @@
-function imout = warpImage (image, H)
+function [imout, translate] = warpImage (image, H, outBox)
 % WARPIMAGE - this function warp give image based on homography matrix H
 
-% w is width in horizontal axis and h is height in vertical axis
-[h, w, ~] = size(image);
-corners = [[1;1;1], [w;1;1], [1;h;1], [w;h;1]];
-imgBox = H * corners;
-imgBox = [imgBox(1, :) ./ imgBox(3, :); imgBox(2, :) ./ imgBox(3, :)];
-newBox = [  floor(min(imgBox(1, :))) ceil(max(imgBox(1, :))) ...
-    floor(min(imgBox(2, :)))  ceil(max(imgBox(2, :)))];
-
 % calculate the final image dimension
-bb_minX = newBox(1);
-bb_maxX = newBox(2);
-bb_minY = newBox(3);
-bb_maxY = newBox(4);
+bb_minX = outBox(1);
+bb_maxX = outBox(2);
+bb_minY = outBox(3);
+bb_maxY = outBox(4);
 
 % calculat the mesh grid in the new image
-[U,V] = meshgrid(bb_minX:bb_maxX,bb_minY:bb_maxY);
+[U,V] = meshgrid(bb_minX:bb_maxX, bb_minY:bb_maxY);
+%[U,V] = meshgrid(-1000:1000, -1000:1000);
 [nrows, ncols] = size(U);
 
 % calcuate the inverse of homography matrix
