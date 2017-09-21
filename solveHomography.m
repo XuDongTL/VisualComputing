@@ -23,5 +23,5 @@ A = [rows1; rows2]; % constructed A matrix, it is transpose of real A.
 [~, ~, V] = svd(A); % solve svd
 v = V(:,end);
 v = v / norm(v);
-v = reshape(v, 3, 3)'; %because reshape order goes down then right
+v = reshape(v, 3, 3)'; %because reshape function order goes down then right
 end

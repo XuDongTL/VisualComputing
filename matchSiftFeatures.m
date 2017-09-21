@@ -3,7 +3,7 @@ function [ matched ] = matchSiftFeatures( des1, des2 )
 % Compute the angle between two vectors to match two descriptors 
 % This could be computed by dot product two normalized vectors.
 
-distRatio = 0.6;  % Was given 0.8 in paper, but 0.6 give better performance
+distRatio = 0.8;  % Was given 0.8 in paper, but 0.6 give better performance
 
 des2prime = des2';
 n = size(des1, 1);

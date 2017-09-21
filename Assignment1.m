@@ -32,9 +32,9 @@ end
 [des1,loc1] = getFeatures(image{1}); 
 first = 40; second = 80;
 drawSiftFeatures(image{1}, loc1, first, second);
-figure;  % Draw features
+figure('Name', 'Features descriptors of two selected SIFT features');
 subplot(2,1,1); bar(des1(first,:)); title('first feature descriptor');  
-subplot(2,1,2); bar(des1(second,:)); title('first feature descriptor');
+subplot(2,1,2); bar(des1(second,:)); title('second feature descriptor');
 
 %% Part 2: Matching SIFT Keypoints of 2 Images
 [des2,loc2] = getFeatures(image{2}); 
@@ -49,16 +49,17 @@ drawSiftMatched(matched ,image{2}, image{3}, loc2, loc3, num2draw);
 
 % find locations in matched features
 num2output = 100;
-[pts1, pts2] = findPointsOfMatched(matched, loc2, loc3, num2output);
+[pts2, pts3] = findPointsOfMatched(matched, loc2, loc3, num2output);
 
 % compute Homography from matched features
-H23 = solveHomography(pts1, pts2);
+h23 = solveHomography(pts2(1:4,:), pts3(1:4,:));
 
 % transfer each point based on homography
-pts = transferPoint(pts1, H23);
+pts = transformPoint(pts3, h23);
+ptsErr = (round(pts) - round(pts2));
 
 % display wrong matching
-wrong = 20; %TODO: findout wrong matching, maybe using RANSAC?
+wrong = 20; %TODO: findout wrong matching, maybe using homography
 figure;  % Draw features
 subplot(2,1,1); bar(des2(wrong,:)); title('feature descriptor in first image');  
 subplot(2,1,2); bar(des3(wrong,:)); title('feature descriptor in second image');
@@ -78,3 +79,4 @@ homography();
 
 %% Part 4: Manual Homography + Sticthing
 % open a GUI
+part4();
