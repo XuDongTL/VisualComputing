@@ -80,16 +80,21 @@ function pushbutton1_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 q1 = getappdata(0, 'q1'); 
 q2 = getappdata(0, 'q2'); 
-im = getappdata(0, 'rightImage');
+im1 = getappdata(0, 'leftImage');
+im2 = getappdata(0, 'rightImage');
+im{1} = im1; im{2} = im2;
+im = im';
 
 hlr = solveHomography(q1, q2);
 hrl = solveHomography(q2, q1); % change second image to first image
-imout2 = warpImage(im, hrl);
-axes(handles.axes2);
-imshow(imout2);
+H{1} = eye(3); H{2} = hrl; H=H';
+imSti = stitchImages(im, H);
+axes(handles.axes3);
+imshow(imSti);
+
 assignin('base','hlr',hlr);
 assignin('base','hrl',hrl);  % set data to workspace
-assignin('base','tranImg',imout2);
+assignin('base','StiImg',imSti);
 
 % --- Executes on button press in importLeftImage.
 function importLeftImage_Callback(hObject, eventdata, handles)
