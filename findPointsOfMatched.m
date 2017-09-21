@@ -1,4 +1,9 @@
 function [pts1, pts2] = findPointsOfMatched(matched, loc1, loc2, num2output)
+% FINDPOINTSOFMATCHED find num2output amout of matched pairs 
+% from two SIFT features extract before. 
+%    matched is given in matchSiftFeature function
+%    loc1 contains all SIFT features in the first image
+%    loc2 contains all SIFT features in the second image
 
 numMatched = sum(matched~=0);
 if numMatched < num2output
