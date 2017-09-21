@@ -82,11 +82,13 @@ q1 = getappdata(0, 'q1');
 q2 = getappdata(0, 'q2'); 
 im = getappdata(0, 'rightImage');
 
-h2 = solveHomography(q2, q1); % change second image to first image
-imout2 = transformImage(im, h2);
+hlr = solveHomography(q1, q2);
+hrl = solveHomography(q2, q1); % change second image to first image
+imout2 = transformImage(im, hrl);
 axes(handles.axes2);
 imshow(imout2);
-assignin('base','h2_part4',h2);  % set data to workspace
+assignin('base','hlr',hlr);
+assignin('base','hrl',hrl);  % set data to workspace
 assignin('base','tranImg',imout2);
 
 % --- Executes on button press in importLeftImage.
