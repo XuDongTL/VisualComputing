@@ -121,13 +121,13 @@ imLeft = getappdata(0, 'leftChess');
 imRight = getappdata(0, 'rightChess');
 
 h1 = solveHomography(p1, p2);
-imout = transformImage(imLeft, h1);
+imout = warpImage(imLeft, h1);
 axes(handles.axes1);
 imshow(imout);
 assignin('base','h1',h1);  % set data to workspace
 
 h2 = solveHomography(p2, p1); % the other way
-imout2 = transformImage(imRight, h2);
+imout2 = warpImage(imRight, h2);
 axes(handles.axes2);
 imshow(imout2);
 assignin('base','h2',h2);  % set data to workspace

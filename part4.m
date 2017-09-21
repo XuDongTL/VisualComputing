@@ -84,7 +84,7 @@ im = getappdata(0, 'rightImage');
 
 hlr = solveHomography(q1, q2);
 hrl = solveHomography(q2, q1); % change second image to first image
-imout2 = transformImage(im, hrl);
+imout2 = warpImage(im, hrl);
 axes(handles.axes2);
 imshow(imout2);
 assignin('base','hlr',hlr);
